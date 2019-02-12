@@ -1,8 +1,11 @@
 package br.senac.agenda.agenda;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,5 +26,17 @@ public class MainActivity extends AppCompatActivity {
 
         //insere o adaptador na lista de contatos
         lista.setAdapter(adapter);
+
+        //Recuperar o botao e criar acao para ele
+        Button novoContato = findViewById(R.id.novoContatoButton);
+
+        novoContato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent contato = new Intent (MainActivity.this, ContatoActivity.class);
+                startActivity(contato);
+            }
+        });
+
     }
 }
