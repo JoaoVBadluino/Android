@@ -1,4 +1,4 @@
-package br.senac.agenda.agenda;
+package br.senac.agenda.agenda.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+
+import br.senac.agenda.agenda.R;
 
 public class MainActivity extends AppCompatActivity {
 

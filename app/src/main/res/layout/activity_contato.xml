@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ContatoActivity"
+    tools:context=".activities.ContatoActivity"
     android:orientation="vertical">
 
     <EditText
@@ -24,12 +24,28 @@
         android:hint="Telefone" />
 
     <EditText
-        android:id="@+id/emailEditText"
+        android:id="@+id/ruaEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Email"
+        android:hint="Rua"
         android:inputType="textPersonName"/>
+
+    <EditText
+        android:id="@+id/numeroEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Numero" />
+
+    <EditText
+        android:id="@+id/cidadeEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Cidada/Estado" />
 
     <RatingBar
         android:id="@+id/pontuacaoRatingBar"
