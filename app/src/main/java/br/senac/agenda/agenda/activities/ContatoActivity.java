@@ -9,6 +9,7 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import br.senac.agenda.agenda.R;
+import br.senac.agenda.agenda.dao.ContatoDAO;
 import br.senac.agenda.agenda.model.ContatoEntity;
 import br.senac.agenda.agenda.model.EnderecoEntity;
 
@@ -46,6 +47,10 @@ public class ContatoActivity extends AppCompatActivity {
                 ContatoEntity contato = new ContatoEntity(nomeEditText.getText().toString(),
                         telefoneEditText.getText().toString(),
                         Double.valueOf(pontuacaoRatingBar.getProgress()));
+
+                ContatoDAO contatoDAO = new ContatoDAO(ContatoActivity.this);
+                contatoDAO.salvar(contato);
+
                 //endereço do contato
                 EnderecoEntity endereco = new EnderecoEntity(ruaEditText.getText().toString(),
                         numeroEditText.getText().toString(),
@@ -53,7 +58,7 @@ public class ContatoActivity extends AppCompatActivity {
 
 
                 //exibe uma mensagem
-                Toast.makeText(ContatoActivity.this,"Contato Salvo!" + contato + "//   Endereço: " + endereco ,Toast.LENGTH_LONG
+                Toast.makeText(ContatoActivity.this,"Contato Salvo!" ,Toast.LENGTH_LONG
                 ).show();
 
                 //finalizar a activity atual e voltar para a MainActivity
