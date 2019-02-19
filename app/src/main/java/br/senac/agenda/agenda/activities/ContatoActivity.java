@@ -1,5 +1,6 @@
 package br.senac.agenda.agenda.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -62,6 +63,8 @@ public class ContatoActivity extends AppCompatActivity {
                 ).show();
 
                 //finalizar a activity atual e voltar para a MainActivity
+                Intent main = new Intent (ContatoActivity.this, MainActivity.class);
+                startActivity(main);
                 finish();
             }
         });

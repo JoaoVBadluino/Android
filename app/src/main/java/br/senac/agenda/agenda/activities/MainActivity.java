@@ -8,7 +8,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import java.util.List;
+
 import br.senac.agenda.agenda.R;
+import br.senac.agenda.agenda.dao.ContatoDAO;
+import br.senac.agenda.agenda.model.ContatoEntity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +25,11 @@ public class MainActivity extends AppCompatActivity {
         ListView lista = findViewById(R.id.listaContatos);
 
         //Cria a lista de contatos como string
-        String[] contatos = {"André","Ari","Roberto","Luzia" };
+        ContatoDAO contatoDAO = new ContatoDAO(this);
+        List<ContatoEntity> contatos = contatoDAO.listar();
 
-        //para conseguirmos  exibir a lista de listview, preciso cirar um adaptador
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, contatos);
+        //para conseguirmos  exibir a lista de listview, preciso criar um adaptador
+        ArrayAdapter<ContatoEntity> adapter = new ArrayAdapter<ContatoEntity>(this, android.R.layout.simple_list_item_1, contatos);
 
         //insere o adaptador na lista de contatos
         lista.setAdapter(adapter);
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent contato = new Intent (MainActivity.this, ContatoActivity.class);
                 startActivity(contato);
+                finish();
             }
         });
 

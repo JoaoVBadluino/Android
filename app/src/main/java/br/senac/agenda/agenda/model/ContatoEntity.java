@@ -12,6 +12,9 @@ public class ContatoEntity {
         this.pontuacao = pontuacao;
     }
 
+    public ContatoEntity() {
+    }
+
     public Integer getId() {
         return id;
     }
@@ -46,9 +49,8 @@ public class ContatoEntity {
 
     @Override
     public String toString() {
-        return "nome='" + nome + '\'' +
-                ", telefone='" + telefone + '\'' +
-                ", pontuacao=" + pontuacao;
+        return
+                nome;
     }
 }
 

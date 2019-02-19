@@ -14,7 +14,14 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
             "NOME TEXT," +
             "TELEFONE TEXT," +
-            "PONTUACAO REAL";
+            "PONTUACAO REAL);";
+
+    private final String DB_ENDERECO = "CREATE TABLE ENDERECO(" +
+            "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+            "RUA TEXT," +
+            "NUMERO TEXT," +
+            "CIDADE TEXT);";
+
 
     public SQLiteHelper(Context context) {
             super(context,DB_NAME, null, DB_VERSION);
@@ -23,6 +30,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DB_CREATE);
+        db.execSQL(DB_ENDERECO);
     }
 
     @Override
