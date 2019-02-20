@@ -20,6 +20,7 @@ public class ContatoDAO {
     }
 
     public void salvar(ContatoEntity contato){
+
         sqLiteDatabase = sqliteHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();

@@ -12,6 +12,9 @@ public class EnderecoEntity {
         this.cidade = cidade;
     }
 
+    public EnderecoEntity() {
+    }
+
     public Integer getId() {
         return id;
     }

@@ -12,7 +12,9 @@ import java.util.List;
 
 import br.senac.agenda.agenda.R;
 import br.senac.agenda.agenda.dao.ContatoDAO;
+import br.senac.agenda.agenda.dao.EnderecoDAO;
 import br.senac.agenda.agenda.model.ContatoEntity;
+import br.senac.agenda.agenda.model.EnderecoEntity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,13 +28,17 @@ public class MainActivity extends AppCompatActivity {
 
         //Cria a lista de contatos como string
         ContatoDAO contatoDAO = new ContatoDAO(this);
+        EnderecoDAO enderecoDAO = new EnderecoDAO(this);
         List<ContatoEntity> contatos = contatoDAO.listar();
+        List<EnderecoEntity> enderecos = enderecoDAO.listou();
 
         //para conseguirmos  exibir a lista de listview, preciso criar um adaptador
         ArrayAdapter<ContatoEntity> adapter = new ArrayAdapter<ContatoEntity>(this, android.R.layout.simple_list_item_1, contatos);
+        ArrayAdapter<EnderecoEntity> adapter_E = new ArrayAdapter<EnderecoEntity>(this, android.R.layout.simple_list_item_1, enderecos);
 
         //insere o adaptador na lista de contatos
         lista.setAdapter(adapter);
+        lista.setAdapter(adapter_E);
 
         //Recuperar o botao e criar acao para ele
         Button novoContato = findViewById(R.id.novoContatoButton);

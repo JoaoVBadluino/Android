@@ -55,11 +55,4 @@
         android:max="10"
         />
 
-    <Button
-        android:id="@+id/salvarContatoButton"
-        android:layout_width="177dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="Salvar" />
-
 </LinearLayout>
