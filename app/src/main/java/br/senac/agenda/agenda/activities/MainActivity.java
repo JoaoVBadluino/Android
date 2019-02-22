@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 import br.senac.agenda.agenda.R;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         ListView lista = findViewById(R.id.listaContatos);
 
         //Cria a lista de contatos como string
-        ContatoDAO contatoDAO = new ContatoDAO(this);
+        final ContatoDAO contatoDAO = new ContatoDAO(this);
         EnderecoDAO enderecoDAO = new EnderecoDAO(this);
         List<ContatoEntity> contatos = contatoDAO.listar();
         List<EnderecoEntity> enderecos = enderecoDAO.listou();
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         //insere o adaptador na lista de contatos
         lista.setAdapter(adapter);
-        lista.setAdapter(adapter_E);
+        //lista.setAdapter(adapter_E);
 
         //Recuperar o botao e criar acao para ele
         Button novoContato = findViewById(R.id.novoContatoButton);
@@ -46,9 +48,26 @@ public class MainActivity extends AppCompatActivity {
         novoContato.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent contato = new Intent (MainActivity.this, ContatoActivity.class);
+                Intent contato = new Intent(MainActivity.this, ContatoActivity.class);
                 startActivity(contato);
                 finish();
+            }
+        });
+
+        Button buscarContato = findViewById(R.id.buscarButton);
+        buscarContato.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText nomeEditText = findViewById(R.id.buscarEditText);
+
+                ContatoDAO contatoDAO = new ContatoDAO(MainActivity.this);
+                List<ContatoEntity> contatos = contatoDAO.listarPorNome(nomeEditText.getText().toString());
+
+                ListView lista = findViewById(R.id.listaContatos);
+
+                ArrayAdapter<ContatoEntity> adapter = new ArrayAdapter<ContatoEntity>(MainActivity.this, android.R.layout.simple_list_item_1,contatos);
+
+                lista.setAdapter(adapter);
             }
         });
 
