@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.lang.reflect.Array;
 import java.util.List;
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Recupera a referencia da lista que tem no layout do aplicativo
-        ListView lista = findViewById(R.id.listaContatos);
+        final ListView lista = findViewById(R.id.listaContatos);
 
         //Cria a lista de contatos como string
         final ContatoDAO contatoDAO = new ContatoDAO(this);
@@ -68,6 +70,24 @@ public class MainActivity extends AppCompatActivity {
                 ArrayAdapter<ContatoEntity> adapter = new ArrayAdapter<ContatoEntity>(MainActivity.this, android.R.layout.simple_list_item_1,contatos);
 
                 lista.setAdapter(adapter);
+            }
+        });
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ContatoEntity contato = (ContatoEntity) lista.getItemAtPosition(position);
+                Intent intentcontato = new Intent(MainActivity.this, ContatoActivity.class);
+                intentcontato.putExtra("C",contato);
+                startActivity(intentcontato);
+
+            }
+        });
+        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(MainActivity.this, "EVENTO DE CLICK LONGO!", Toast.LENGTH_LONG
+                ).show();
+                return false;
             }
         });
 

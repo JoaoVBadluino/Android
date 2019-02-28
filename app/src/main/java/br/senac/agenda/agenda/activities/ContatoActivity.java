@@ -20,10 +20,25 @@ import br.senac.agenda.agenda.model.EnderecoEntity;
 
 public class ContatoActivity extends AppCompatActivity {
 
+    ContatoEntity contatoEntity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contato);
+
+        Intent intent = getIntent();
+        contatoEntity  = (ContatoEntity) intent.getSerializableExtra("C");
+        if(contatoEntity != null){
+            EditText nomeEditTexte = findViewById(R.id.nomeEditText);
+            nomeEditTexte.setText(contatoEntity.getNome());
+            //
+            EditText telefoneEditTexte = findViewById(R.id.telefoneEditText);
+            telefoneEditTexte.setText(contatoEntity.getTelefone());
+            //
+            RatingBar potuacaoRatingBar = findViewById(R.id.pontuacaoRatingBar);
+            potuacaoRatingBar.setProgress(contatoEntity.getPontuacao().intValue());
+        }
 
     }
 
@@ -50,9 +65,16 @@ public class ContatoActivity extends AppCompatActivity {
                 //Texto que estava presentes nos objetos
 
                 //nome e telefone do contato
-                ContatoEntity contato = new ContatoEntity(nomeEditText.getText().toString(),
-                        telefoneEditText.getText().toString(),
-                        Double.valueOf(pontuacaoRatingBar.getProgress()));
+                if(contatoEntity != null){
+                    contatoEntity.setNome(nomeEditText.getText().toString());
+                    contatoEntity.setTelefone(telefoneEditText.getText().toString());
+                    contatoEntity.setPontuacao(Double.valueOf(pontuacaoRatingBar.getProgress()));
+
+                }else {
+                    contatoEntity = new ContatoEntity(nomeEditText.getText().toString(),
+                            telefoneEditText.getText().toString(),
+                            Double.valueOf(pontuacaoRatingBar.getProgress()));
+                }
 
                 EnderecoEntity endereco = new EnderecoEntity(cidadeEditText.getText().toString(),
                         ruaEditText.getText().toString(),
@@ -61,7 +83,7 @@ public class ContatoActivity extends AppCompatActivity {
 
                 ContatoDAO contatoDAO = new ContatoDAO(ContatoActivity.this);
 
-                contatoDAO.salvar(contato);
+                contatoDAO.salvar(contatoEntity);
 
                 EnderecoDAO enderecoDAO = new EnderecoDAO(ContatoActivity.this);
 
