@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,5 +76,13 @@ public class ContatoDAO {
         }
         return contatos;
     }
+    public void removerContato (ContatoEntity contato){
+        sqLiteDatabase = sqliteHelper.getWritableDatabase();
+
+        sqLiteDatabase.delete("CONTATO","ID = ?", new String[]{contato.getId().toString()});
+
+        sqLiteDatabase.close();
+    }
+
 
 }

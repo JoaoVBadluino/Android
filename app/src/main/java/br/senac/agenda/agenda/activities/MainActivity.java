@@ -3,7 +3,10 @@ package br.senac.agenda.agenda.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,14 +24,14 @@ import br.senac.agenda.agenda.model.ContatoEntity;
 import br.senac.agenda.agenda.model.EnderecoEntity;
 
 public class MainActivity extends AppCompatActivity {
-
+    public ListView lista;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         //Recupera a referencia da lista que tem no layout do aplicativo
-        final ListView lista = findViewById(R.id.listaContatos);
+        lista = findViewById(R.id.listaContatos);
 
         //Cria a lista de contatos como string
         final ContatoDAO contatoDAO = new ContatoDAO(this);
@@ -82,11 +85,37 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                Toast.makeText(MainActivity.this, "EVENTO DE CLICK LONGO!", Toast.LENGTH_LONG
+//                ).show();
+//                return false;
+//            }
+//        });
+      registerForContextMenu(lista);
+
+    }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, final ContextMenu.ContextMenuInfo menuInfo) {
+        MenuItem remover = menu.add("REMOVER");
+
+        remover.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "EVENTO DE CLICK LONGO!", Toast.LENGTH_LONG
-                ).show();
+            public boolean onMenuItemClick(MenuItem item) {
+                AdapterView.AdapterContextMenuInfo infoAdapterView = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+                ContatoEntity contato = (ContatoEntity) lista.getItemAtPosition(infoAdapterView.position);
+
+                //remover o contato DÃO
+                ContatoDAO contatoDAO = new ContatoDAO(MainActivity.this);
+                contatoDAO.removerContato(contato);
+
+                List<ContatoEntity> contatos = contatoDAO.listar();
+                ArrayAdapter<ContatoEntity> adapter = new ArrayAdapter<ContatoEntity>(MainActivity.this, android.R.layout.simple_list_item_1, contatos);
+                lista.setAdapter(adapter);
+
+
                 return false;
             }
         });
